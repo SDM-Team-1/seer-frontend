@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - stable
+cache:
+  directories:
+    - node_modules
+
+jobs:
+  include:
+    - stage: Run ESlint checks
+      script: 'npm run lint'
+
+    - stage: Build project
+      script: 'npm run build'
+
+    - stage: Run Unit tests
+      script: 'npm run test'
+
+    - stage: Deploy React frontend to Heroku
+      # before_deploy:
+      #   - ./deployScript.sh
+      deploy:
+        provider: heroku
+        cleanup: true
+        app: seer-frontend
+        api_key:
+          secure: w5KPbTZhJ7LZCArgmynEY2PjvUot4x8TeLKDCvNetzCF07A0L48VFSnGd6PV+GYag5sKMZ8k1NrJ0ep5m63RaKBlPXcgjjobAfavr33lwpCzyoGYfFxQysgdGMFl0MVWUJEEvD4X0Qhm7fMgz2/On/P4ZwclxJWpXnvXLj7cn23c4BJeAmLbH4HT5OnyJ92mNHqE5GWWfGOA7hM/z/IJF7/x/q6u2R3WrBIJWZY+JJbERs9SYNfLOXBaMJjAymRD2PUlCtqoSJDQ60m/6+mivK/mzaQCPMtdiyyNgIIQKRjS05Pie7JrNvyDanK3LLevi0o4+HhIJ/aJgPsN6mOm7uFldKHEwcBTB4qdp8qD5DgfLgsXttqgh8fEny0whEoSCMiaBQBseCj4NADqrVDCqDU6BF1HCzoOyJ1vlcDdmlefMOvBeWE49aIwdbH4m4kt9to2BomAqhdrx9XmtPjyei/8VLC5AheWFY6XYmm8T5Xv6AzSd20hjxJZFhqb/YTi7VGMO2bcg1nYo4sEoJx3tHBXD0YSkbsB2/oodDwpIxQaC5/V/3s7jeGz2JwUcCLTs/JFs02YJqj2BfoA7TFbHRctew8W+t1W++Rngiqf1TXHRE0Rt8V9upHwNjAVnkA7Ota1gONqj4gBvhFRITnMwvfqE5E1/PrVL+xT6L4Vupc=
+        on:
+          repo: SDM-Team-1/seer-frontend
+          branch: master

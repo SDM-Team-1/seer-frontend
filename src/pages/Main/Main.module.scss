@@ -1,0 +1,17 @@
+.main {
+  background-color: burlywood;
+  height: 100vh;
+  
+  section {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.pageContent {
+  height: 85vh;
+}
+
+.SearchBar{
+  margin-bottom: 1vh;
+}
