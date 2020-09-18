@@ -7,11 +7,11 @@ import SearchBar from './components/Searchbar/Searchbar';
 
 function Main() {
   return (
-    <div>
+    <div className={style.main}>
       {/* <header>
         <Header></Header>
       </header> */}
-      <section className={style.main}>
+      <section>
         <SearchBar />
       </section>
       {/* <footer>
