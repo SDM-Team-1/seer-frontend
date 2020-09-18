@@ -35,12 +35,16 @@
     "husky": "^4.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
+    "startDev": "react-scripts start",
     "build": "react-scripts build",
+    "dockerStart": "docker build -t static-server . && docker run --name ReactNginx --rm -d -p 80:80 static-server",
+    "dockerClean": "docker stop $(docker container ls -q --filter name=ReactNginx)",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint -f table \"./src/**/*.js\""
   },
+  "homepage": ".",
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint && CI=true npm test",
