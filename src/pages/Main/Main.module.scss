@@ -1,7 +1,7 @@
 .main {
-  background-color: burlywood;
+  background-color: whitesmoke;
   height: 100vh;
-  
+
   section {
     display: flex;
     justify-content: center;
@@ -12,6 +12,15 @@
   height: 85vh;
 }
 
-.SearchBar{
-  margin-bottom: 1vh;
+.SearchBar {
+  margin-bottom: 2vh;
+}
+
+.FilterSearch {
+  margin-bottom: 5vh;
+  div {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+  }
 }

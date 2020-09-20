@@ -1,9 +1,10 @@
 .main {
   margin: 0;
   display: flex;
-  width: 40vw;
-  height: 5vh;
-  padding: 30px;
+  width: 50vw;
+  height: 8vh;
+  padding-left: 20px;
+  align-items: center;
 }
 
 .searchBox {
@@ -16,6 +17,6 @@
   margin-left: 2% !important;
 }
 
-.GridContainer {
-  width: 30%;
+.startDate {
+  margin-right: 30px !important;
 }
