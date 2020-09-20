@@ -1,6 +1,19 @@
 .main {
   margin: 0;
   display: flex;
-  width: 40vw;
-  height: 5vh;
+  width: 50vw;
+  height: 10vh;
+  align-items: center;
+}
+
+.nameOfField,
+.values,
+.operators {
+  margin-left: 1vw;
+  width: 35%;
+}
+
+.filterControls {
+  margin-left: auto;
+  margin-right: 2vh;
 }

@@ -23,14 +23,24 @@ function Searchbar() {
       height: '100%',
       minWidth: '10%',
       fontSize: '2em',
+      color: '#fff',
+      backgroundColor: '#3284FF',
     },
     iconStyle: {
       fontSize: '1.5em',
     },
   }));
 
-  const selectedStartDate = new Date('2014');
-  const selectedEndDate = new Date('2020');
+  const minDate = new Date('2000');
+  const maxDate = new Date();
+  const [selStartDate, setSelStartDate] = React.useState(new Date('2010'));
+  const [selEndDate, setSelEndDate] = React.useState(maxDate);
+  const handleStartDateChange = (date) => {
+    setSelStartDate(date);
+  };
+  const handleEndDateChange = (date) => {
+    setSelEndDate(date);
+  };
 
   const classes = useStyles();
   return (
@@ -48,12 +58,12 @@ function Searchbar() {
             autoOk={true}
             format="MMM/yyyy"
             views={['year', 'month']}
-            minDate="2000"
-            maxDate="2021"
+            minDate={minDate}
+            maxDate={maxDate}
             margin="normal"
             label="Start Time"
-            value={selectedStartDate}
-            onChange={handleDateChange}
+            value={selStartDate}
+            onChange={handleStartDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
@@ -63,13 +73,13 @@ function Searchbar() {
             autoOk={true}
             format="MMM/yyyy"
             views={['year', 'month']}
-            minDate="2000"
-            maxDate="2021"
+            minDate={selStartDate}
+            maxDate={maxDate}
             margin="normal"
             id="date-picker-inline"
             label="End Time"
-            value={selectedEndDate}
-            onChange={handleDateChange}
+            value={selEndDate}
+            onChange={handleEndDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
@@ -87,9 +97,5 @@ function Searchbar() {
     </>
   );
 }
-
-const handleDateChange = (date) => {
-  console.log(date);
-};
 
 export default Searchbar;
