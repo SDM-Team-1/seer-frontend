@@ -31,7 +31,7 @@ function Searchbar() {
     },
   }));
 
-  const minDate = new Date('2000');
+  const minDate = new Date('1950');
   const maxDate = new Date();
   const [selStartDate, setSelStartDate] = React.useState(new Date('2010'));
   const [selEndDate, setSelEndDate] = React.useState(maxDate);
@@ -46,22 +46,22 @@ function Searchbar() {
   return (
     <>
       <Card className={style.main}>
-        <TextField
+        {/* <TextField
           className={style.searchBox}
           label="Search description"
           variant="outlined"
-        />
+        /> */}
         <MuiPickersUtilsProvider utils={DateFnsUtils} className={style.Picker}>
           <KeyboardDatePicker
             className={style.startDate}
             variant="inline"
             autoOk={true}
-            format="MMM/yyyy"
-            views={['year', 'month']}
+            format="yyyy"
+            views={['year']}
             minDate={minDate}
             maxDate={maxDate}
             margin="normal"
-            label="Start Time"
+            label="From"
             value={selStartDate}
             onChange={handleStartDateChange}
             KeyboardButtonProps={{
@@ -71,13 +71,13 @@ function Searchbar() {
           <KeyboardDatePicker
             variant="inline"
             autoOk={true}
-            format="MMM/yyyy"
-            views={['year', 'month']}
+            format="yyyy"
+            views={['year']}
             minDate={selStartDate}
             maxDate={maxDate}
             margin="normal"
             id="date-picker-inline"
-            label="End Time"
+            label="To"
             value={selEndDate}
             onChange={handleEndDateChange}
             KeyboardButtonProps={{
