@@ -30,18 +30,7 @@ function Main() {
           <SearchBar />
         </section>
 
-        <section className={style.FilterSearch}>
-          <div>
-            <Button
-              variant="contained"
-              size="small"
-              className={classes.FilterButton}
-            >
-              Filter Search
-            </Button>
-          </div>
-        </section>
-
+      
         {/* 5vh */}
         <section>
           <MethodFilter></MethodFilter>
