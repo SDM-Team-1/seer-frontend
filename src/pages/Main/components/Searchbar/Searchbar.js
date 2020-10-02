@@ -21,7 +21,7 @@ function Searchbar() {
       marginRight: 0,
       padding: 0,
       height: '100%',
-      minWidth: '10%',
+      minWidth: '15%',
       fontSize: '2em',
       color: '#fff',
       backgroundColor: '#3284FF',
@@ -46,11 +46,6 @@ function Searchbar() {
   return (
     <>
       <Card className={style.main}>
-        {/* <TextField
-          className={style.searchBox}
-          label="Search description"
-          variant="outlined"
-        /> */}
         <MuiPickersUtilsProvider utils={DateFnsUtils} className={style.Picker}>
           <KeyboardDatePicker
             className={style.startDate}
