@@ -6,13 +6,11 @@ import {
 } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
 
-import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 
 import style from './Searchbar.module.scss';
-// import style from './Searchbar.module.scss';
 
 function Searchbar() {
   const useStyles = makeStyles((theme) => ({
@@ -21,7 +19,7 @@ function Searchbar() {
       marginRight: 0,
       padding: 0,
       height: '100%',
-      minWidth: '10%',
+      minWidth: '15%',
       fontSize: '2em',
       color: '#fff',
       backgroundColor: '#3284FF',
@@ -31,38 +29,35 @@ function Searchbar() {
     },
   }));
 
-  const minDate = new Date('2000');
+  // set the minimum time as 1950 and the max as the current time 
+  const minDate = new Date('1950');
   const maxDate = new Date();
-  const [selStartDate, setSelStartDate] = React.useState(new Date('2010'));
-  const [selEndDate, setSelEndDate] = React.useState(maxDate);
+  const [fromDate, setFromDate] = React.useState(new Date('2010'));
+  const [toDate, setToDate] = React.useState(maxDate);
+
   const handleStartDateChange = (date) => {
-    setSelStartDate(date);
+    setFromDate(date);
   };
   const handleEndDateChange = (date) => {
-    setSelEndDate(date);
+    setToDate(date);
   };
 
   const classes = useStyles();
   return (
     <>
       <Card className={style.main}>
-        <TextField
-          className={style.searchBox}
-          label="Search description"
-          variant="outlined"
-        />
         <MuiPickersUtilsProvider utils={DateFnsUtils} className={style.Picker}>
           <KeyboardDatePicker
             className={style.startDate}
             variant="inline"
             autoOk={true}
-            format="MMM/yyyy"
-            views={['year', 'month']}
+            format="yyyy"
+            views={['year']}
             minDate={minDate}
             maxDate={maxDate}
             margin="normal"
-            label="Start Time"
-            value={selStartDate}
+            label="From"
+            value={fromDate}
             onChange={handleStartDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
@@ -71,14 +66,14 @@ function Searchbar() {
           <KeyboardDatePicker
             variant="inline"
             autoOk={true}
-            format="MMM/yyyy"
-            views={['year', 'month']}
-            minDate={selStartDate}
+            format="yyyy"
+            views={['year']}
+            minDate={fromDate}
             maxDate={maxDate}
             margin="normal"
             id="date-picker-inline"
-            label="End Time"
-            value={selEndDate}
+            label="To"
+            value={toDate}
             onChange={handleEndDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
