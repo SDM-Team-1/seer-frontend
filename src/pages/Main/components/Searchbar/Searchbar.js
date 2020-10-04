@@ -4,31 +4,11 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { makeStyles } from '@material-ui/core/styles';
-
 import Card from '@material-ui/core/Card';
-import SearchIcon from '@material-ui/icons/Search';
-import Button from '@material-ui/core/Button';
 
 import style from './Searchbar.module.scss';
 
 function Searchbar() {
-  const useStyles = makeStyles((theme) => ({
-    searchButton: {
-      margin: theme.spacing(1),
-      marginRight: 0,
-      padding: 0,
-      height: '100%',
-      minWidth: '15%',
-      fontSize: '2em',
-      color: '#fff',
-      backgroundColor: '#3284FF',
-    },
-    iconStyle: {
-      fontSize: '1.5em',
-    },
-  }));
-
   // set the minimum time as 1950 and the max as the current time 
   const minDate = new Date('1950');
   const maxDate = new Date();
@@ -42,7 +22,6 @@ function Searchbar() {
     setToDate(date);
   };
 
-  const classes = useStyles();
   return (
     <>
       <Card className={style.main}>
@@ -80,14 +59,6 @@ function Searchbar() {
             }}
           />
         </MuiPickersUtilsProvider>
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-          className={classes.searchButton}
-        >
-          <SearchIcon className={classes.iconStyle} />
-        </Button>
       </Card>
     </>
   );

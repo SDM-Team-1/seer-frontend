@@ -4,15 +4,30 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
 
 import style from './MethodFilter.module.scss';
 
-function MethodFilter() {
+function MethodFilter({ showSearch }) {
   const useStyles = makeStyles((theme) => ({
     autoComplete: {
       marginLeft: '1vw',
       marginRight: '1vw',
       width: '23vw',
+    },
+    searchButton: {
+      margin: theme.spacing(1),
+      marginRight: 0,
+      padding: 0,
+      height: '100%',
+      minWidth: '15%',
+      fontSize: '2em',
+      color: '#fff',
+      backgroundColor: '#3284FF',
+    },
+    iconStyle: {
+      fontSize: '1.5em',
     },
   }));
 
@@ -50,6 +65,11 @@ function MethodFilter() {
     ],
   };
 
+  const performSearch = () => {
+    console.log('Search !!!');
+    showSearch();
+  };
+
   return (
     <Card className={style.main}>
       <Autocomplete
@@ -71,6 +91,16 @@ function MethodFilter() {
           <TextField {...params} label="Benefit" variant="outlined" />
         )}
       />
+
+      <Button
+        variant="contained"
+        size="large"
+        color="primary"
+        className={classes.searchButton}
+        onClick={performSearch}
+      >
+        <SearchIcon className={classes.iconStyle} />
+      </Button>
     </Card>
   );
 }
