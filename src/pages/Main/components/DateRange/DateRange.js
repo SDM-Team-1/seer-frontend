@@ -4,12 +4,11 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 
-import style from './Searchbar.module.scss';
-
-function Searchbar() {
-  // set the minimum time as 1950 and the max as the current time 
+import style from './DateRange.module.scss';
+function DateRange() {
+  // set the minimum time as 1950 and the max as the current time
   const minDate = new Date('1950');
   const maxDate = new Date();
   const [fromDate, setFromDate] = React.useState(new Date('2010'));
@@ -24,8 +23,8 @@ function Searchbar() {
 
   return (
     <>
-      <Card className={style.main}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils} className={style.Picker}>
+      <Box className={style.main}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             className={style.startDate}
             variant="inline"
@@ -43,6 +42,7 @@ function Searchbar() {
             }}
           />
           <KeyboardDatePicker
+            className={style.endDate}
             variant="inline"
             autoOk={true}
             format="yyyy"
@@ -59,9 +59,9 @@ function Searchbar() {
             }}
           />
         </MuiPickersUtilsProvider>
-      </Card>
+      </Box>
     </>
   );
 }
 
-export default Searchbar;
+export default DateRange;
