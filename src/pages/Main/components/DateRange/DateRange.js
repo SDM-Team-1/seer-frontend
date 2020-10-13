@@ -4,28 +4,27 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 
-import style from './Searchbar.module.scss';
+import style from './DateRange.module.scss';
+function DateRange({ from, to, updateDate }) {
+  console.log({ from, to });
 
-function Searchbar() {
-  // set the minimum time as 1950 and the max as the current time 
+  // set the minimum time as 1950 and the max as the current time
   const minDate = new Date('1950');
   const maxDate = new Date();
-  const [fromDate, setFromDate] = React.useState(new Date('2010'));
-  const [toDate, setToDate] = React.useState(maxDate);
 
   const handleStartDateChange = (date) => {
-    setFromDate(date);
+    updateDate({ from: date, to });
   };
   const handleEndDateChange = (date) => {
-    setToDate(date);
+    updateDate({ to: date, from });
   };
 
   return (
     <>
-      <Card className={style.main}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils} className={style.Picker}>
+      <Box className={style.main}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             className={style.startDate}
             variant="inline"
@@ -33,35 +32,36 @@ function Searchbar() {
             format="yyyy"
             views={['year']}
             minDate={minDate}
-            maxDate={maxDate}
+            maxDate={to}
             margin="normal"
             label="From"
-            value={fromDate}
+            value={from}
             onChange={handleStartDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
           />
           <KeyboardDatePicker
+            className={style.endDate}
             variant="inline"
             autoOk={true}
             format="yyyy"
             views={['year']}
-            minDate={fromDate}
+            minDate={from}
             maxDate={maxDate}
             margin="normal"
             id="date-picker-inline"
             label="To"
-            value={toDate}
+            value={to}
             onChange={handleEndDateChange}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
           />
         </MuiPickersUtilsProvider>
-      </Card>
+      </Box>
     </>
   );
 }
 
-export default Searchbar;
+export default DateRange;

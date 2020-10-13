@@ -17,8 +17,7 @@ jobs:
       script: 'npm run test'
 
     - stage: Deploy React frontend to Heroku
-      # before_deploy:
-      #   - ./deployScript.sh
+
       deploy:
         provider: heroku
         cleanup: true

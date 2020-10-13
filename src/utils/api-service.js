@@ -1,5 +1,6 @@
-import config from '../config/'
-const getArticleData = () => {
+import config from '../config/';
+const getArticleData = (criteria) => {
+  console.log('Searching for articles satisfying', criteria);
   const options = {
     method: 'GET',
     headers: {
@@ -7,7 +8,7 @@ const getArticleData = () => {
       accept: 'application/json',
     },
   };
-  console.log(`Fetching data from ${config.API_SERVER}`)
+  console.log(`Fetching data from ${config.API_SERVER}`);
   return fetch(`${config.API_SERVER}/api/article`, options).then((res) =>
     res.json()
   );

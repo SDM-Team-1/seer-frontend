@@ -7,9 +7,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 
-import style from './MethodFilter.module.scss';
+import style from './FilterSearchBar.module.scss';
 
-function MethodFilter({ showSearch }) {
+function FilterSearchBar({ showSearch }) {
   const useStyles = makeStyles((theme) => ({
     autoComplete: {
       marginLeft: '1vw',
@@ -68,6 +68,7 @@ function MethodFilter({ showSearch }) {
   const performSearch = () => {
     console.log('Search !!!');
     showSearch();
+    
   };
 
   return (
@@ -105,4 +106,4 @@ function MethodFilter({ showSearch }) {
   );
 }
 
-export default MethodFilter;
+export default FilterSearchBar;
