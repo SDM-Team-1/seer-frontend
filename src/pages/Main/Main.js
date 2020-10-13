@@ -19,10 +19,12 @@ function Main() {
   const dateFiveYearAgo = new Date((new Date().getFullYear() - 5).toString());
   const dateTenYearAgo = new Date((new Date().getFullYear() - 10).toString());
 
-  const [showResults, setShowResults] = React.useState(false);
   const [dateRange, setDateRange] = React.useState(initialDateRange);
-  const [articleResult, setArticleResult] = React.useState([]);
   const [quickYearRange, setQuickYearRange] = React.useState('all');
+  const [practice, setPractice] = React.useState();
+  const [benefit, setBenefit] = React.useState([]);
+  const [showResults, setShowResults] = React.useState(false);
+  const [articleResult, setArticleResult] = React.useState([]);
 
   const handleUpdateDate = (selectedDate) => {
     setDateRange({ from: selectedDate.from, to: selectedDate.to });
@@ -84,6 +86,8 @@ function Main() {
     getArticleData({
       from: dateRange.from.getFullYear(),
       to: dateRange.to.getFullYear(),
+      practice,
+      benefit,
     }).then(
       (result) => {
         setArticleResult(result.data);
@@ -93,6 +97,14 @@ function Main() {
         window.alert(error);
       }
     );
+  };
+
+  const handlePracticeChange = (_, practice) => {
+    setPractice(practice.name);
+    console.log(practice);
+  };
+  const handleBenefitChange = (_, benefits) => {
+    setBenefit(benefits.map((benefit) => benefit.name));
   };
 
   return (
@@ -105,7 +117,11 @@ function Main() {
       <div className={style.pageContent}>
         {/* 5vh */}
         <section>
-          <FilterSearchBar showSearch={() => performSearch()}></FilterSearchBar>
+          <FilterSearchBar
+            showSearch={() => performSearch()}
+            updatePractice={handlePracticeChange}
+            updateBenefit={handleBenefitChange}
+          ></FilterSearchBar>
         </section>
 
         <section className={style.Date}>
