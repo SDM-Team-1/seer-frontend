@@ -10,29 +10,23 @@ const useStyles = makeStyles({
   buttonColor: {
     '&.Mui-selected': {
       backgroundColor: '#3284FF',
-      '&:hover': { backgroundColor: '#9DBFF2' },
+      '&:hover': { backgroundColor: '#3284FF' },
       color: 'white',
     },
     '&:hover': { backgroundColor: '#9DBFF2' },
   },
 });
 
-function QuickDate() {
-  const [yearToggleVal, setYearToggleVal] = React.useState('all');
-  const handleYearToggle = (_, toggleVal) => {
-    setYearToggleVal(toggleVal);
-    console.log(toggleVal);
-  };
+function QuickDate({ yearRange, onToggle }) {
   const classes = useStyles();
 
   return (
     <>
       <Box className={style.main}>
         <ToggleButtonGroup
-          thumbSwitchedStyle={{ backgroundColor: 'red' }}
-          value={yearToggleVal}
+          value={yearRange}
           exclusive
-          onChange={handleYearToggle}
+          onChange={onToggle}
           aria-label="Year quick select"
         >
           <ToggleButton

@@ -12,11 +12,79 @@ import QuickDate from './components/QuickDate/QuickDate';
 import getArticleData from '../../utils/api-service';
 
 function Main() {
-  const [showSearch, setShowSearch] = React.useState(false);
+  const initialDateRange = {
+    from: new Date('1950'),
+    to: new Date(),
+  };
+  const dateFiveYearAgo = new Date((new Date().getFullYear() - 5).toString());
+  const dateTenYearAgo = new Date((new Date().getFullYear() - 10).toString());
+
+  const [showResults, setShowResults] = React.useState(false);
+  const [dateRange, setDateRange] = React.useState(initialDateRange);
   const [articleResult, setArticleResult] = React.useState([]);
+  const [quickYearRange, setQuickYearRange] = React.useState('all');
+
+  const handleUpdateDate = (selectedDate) => {
+    setDateRange({ from: selectedDate.from, to: selectedDate.to });
+    const toCurrentTime =
+      selectedDate.to.getFullYear() === new Date().getFullYear();
+    if (!toCurrentTime) {
+      setQuickYearRange(null);
+    } else if (
+      selectedDate.from.getFullYear() === dateFiveYearAgo.getFullYear() &&
+      toCurrentTime
+    ) {
+      setQuickYearRange('5');
+    } else if (
+      selectedDate.from.getFullYear() === dateTenYearAgo.getFullYear() &&
+      toCurrentTime
+    ) {
+      setQuickYearRange('10');
+    } else if (
+      selectedDate.from.getFullYear() === initialDateRange.from.getFullYear() &&
+      toCurrentTime
+    ) {
+      setQuickYearRange('all');
+    } else {
+      setQuickYearRange(null);
+    }
+  };
+
+  const handleYearToggle = (e, toggleVal) => {
+    e.preventDefault();
+    if (toggleVal !== null) setQuickYearRange(toggleVal);
+    switch (toggleVal) {
+      case 'all':
+        setDateRange(initialDateRange);
+        console.log('All dates selected');
+        break;
+      case '5':
+        setDateRange({
+          from: dateFiveYearAgo,
+          to: new Date(),
+        });
+        console.log('Last 5 years selected');
+        break;
+      case '10':
+        setDateRange({
+          from: dateTenYearAgo,
+          to: new Date(),
+        });
+        console.log('Last 10 years selected');
+        break;
+      default:
+        console.log('Null value, no change');
+        break;
+    }
+    console.log(toggleVal);
+  };
+
   const performSearch = () => {
-    setShowSearch(true);
-    getArticleData().then(
+    setShowResults(true);
+    getArticleData({
+      from: dateRange.from.getFullYear(),
+      to: dateRange.to.getFullYear(),
+    }).then(
       (result) => {
         setArticleResult(result.data);
       },
@@ -44,18 +112,25 @@ function Main() {
           <Card>
             {/* 5vh */}
             <section className={style.DateRange}>
-              <DateRange />
+              <DateRange
+                from={dateRange.from}
+                to={dateRange.to}
+                updateDate={handleUpdateDate}
+              />
             </section>
 
             {/* 5vh */}
             <section className={style.QuickDate}>
-              <QuickDate />
+              <QuickDate
+                yearRange={quickYearRange}
+                onToggle={handleYearToggle}
+              />
             </section>
           </Card>
         </section>
 
         {/* 75vh */}
-        {showSearch && (
+        {showResults && (
           <ResultTable
             className={style.ResultTable}
             tableData={articleResult}
