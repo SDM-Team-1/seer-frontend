@@ -41,7 +41,7 @@
   },
   "scripts": {
     "start": "serve -s build",
-    "startDev": "react-scripts start",
+    "start:serve": "react-scripts start",
     "build": "react-scripts build",
     "dockerStart": "docker build -t static-server . && docker run --name ReactNginx --rm -d -p 80:80 static-server",
     "dockerClean": "docker stop $(docker container ls -q --filter name=ReactNginx)",
