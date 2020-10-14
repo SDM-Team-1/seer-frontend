@@ -9,12 +9,21 @@ import Button from '@material-ui/core/Button';
 
 import style from './FilterSearchBar.module.scss';
 
-function FilterSearchBar({ showSearch }) {
+function FilterSearchBar({
+  showSearch,
+  updatePractice,
+  updateBenefit,
+}) {
   const useStyles = makeStyles((theme) => ({
     autoComplete: {
       marginLeft: '1vw',
       marginRight: '1vw',
       width: '23vw',
+    },
+    autoCompleteBenefit: {
+      marginLeft: '1vw',
+      marginRight: '1vw',
+      width: '46vw',
     },
     searchButton: {
       margin: theme.spacing(1),
@@ -46,7 +55,7 @@ function FilterSearchBar({ showSearch }) {
         isDisabled: true,
       },
     ],
-    Benefit: [
+    Benefits: [
       {
         name: 'Improves code quality',
         id: 'someRandomIDString',
@@ -68,7 +77,6 @@ function FilterSearchBar({ showSearch }) {
   const performSearch = () => {
     console.log('Search !!!');
     showSearch();
-    
   };
 
   return (
@@ -81,16 +89,19 @@ function FilterSearchBar({ showSearch }) {
         renderInput={(params) => (
           <TextField {...params} label="Practice" variant="outlined" />
         )}
+        onChange={updatePractice}
       />
 
       <Autocomplete
-        options={filterOptions['Benefit']}
+        options={filterOptions['Benefits']}
         getOptionLabel={(option) => option.name}
+        multiple
         getOptionDisabled={(option) => option.isDisabled}
-        className={classes.autoComplete}
+        className={classes.autoCompleteBenefit}
         renderInput={(params) => (
-          <TextField {...params} label="Benefit" variant="outlined" />
+          <TextField {...params} label="Benefits" variant="outlined" />
         )}
+        onChange={updateBenefit}
       />
 
       <Button
