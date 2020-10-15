@@ -28,6 +28,7 @@ function Main() {
   const [articleResult, setArticleResult] = React.useState([]);
 
   const handleUpdateDate = (selectedDate) => {
+    setShowResults(false);
     setDateRange({ from: selectedDate.from, to: selectedDate.to });
     const toCurrentTime =
       selectedDate.to.getFullYear() === new Date().getFullYear();
@@ -60,6 +61,7 @@ function Main() {
 
   const handleYearToggle = (e, toggleVal) => {
     e.preventDefault();
+    setShowResults(false);
     if (toggleVal !== null) setQuickYearRange(toggleVal);
     switch (toggleVal) {
       case 'all':

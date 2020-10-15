@@ -95,6 +95,7 @@ function ResultTable({ tableData, benefitsSelected }) {
                     </TableRow>
                   );
                 }
+                return <></>;
               })
             )}
           </TableBody>
