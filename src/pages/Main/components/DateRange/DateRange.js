@@ -8,8 +8,6 @@ import Box from '@material-ui/core/Box';
 
 import style from './DateRange.module.scss';
 function DateRange({ from, to, updateDate }) {
-  console.log({ from, to });
-
   // set the minimum time as 1950 and the max as the current time
   const minDate = new Date('1950');
   const maxDate = new Date();
