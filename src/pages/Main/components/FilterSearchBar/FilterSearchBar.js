@@ -9,11 +9,7 @@ import Button from '@material-ui/core/Button';
 
 import style from './FilterSearchBar.module.scss';
 
-function FilterSearchBar({
-  showSearch,
-  updatePractice,
-  updateBenefit,
-}) {
+function FilterSearchBar({ showSearch, updatePractice, updateBenefit }) {
   const useStyles = makeStyles((theme) => ({
     autoComplete: {
       marginLeft: '1vw',
@@ -74,8 +70,9 @@ function FilterSearchBar({
     ],
   };
 
-  const performSearch = () => {
+  const performSearch = (e) => {
     console.log('Search !!!');
+    e.preventDefault();
     showSearch();
   };
 
@@ -85,6 +82,7 @@ function FilterSearchBar({
         options={filterOptions['Practice']}
         getOptionLabel={(option) => option.name}
         getOptionDisabled={(option) => option.isDisabled}
+        getOptionSelected={(option) => option.name}
         className={classes.autoComplete}
         renderInput={(params) => (
           <TextField {...params} label="Practice" variant="outlined" />
@@ -97,6 +95,7 @@ function FilterSearchBar({
         getOptionLabel={(option) => option.name}
         multiple
         getOptionDisabled={(option) => option.isDisabled}
+        getOptionSelected={(option, selected) => option.name === selected.name }
         className={classes.autoCompleteBenefit}
         renderInput={(params) => (
           <TextField {...params} label="Benefits" variant="outlined" />

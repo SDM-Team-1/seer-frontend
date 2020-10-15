@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 
 import style from './Main.module.scss';
 import Header from '../../shared-components/Header/Header';
-import Footer from '../../shared-components/Footer/Footer';
+// import Footer from '../../shared-components/Footer/Footer';
 import DateRange from './components/DateRange/DateRange';
 import FilterSearchBar from './components/FilterSearchBar/FilterSearchBar';
 import ResultTable from './components/ResultTable/ResultTable';
@@ -33,6 +33,11 @@ function Main() {
     if (!toCurrentTime) {
       setQuickYearRange(null);
     } else if (
+      selectedDate.from.getFullYear() === (new Date().getFullYear()) &&
+      toCurrentTime
+    ) {
+      setQuickYearRange('1');
+    } else if (
       selectedDate.from.getFullYear() === dateFiveYearAgo.getFullYear() &&
       toCurrentTime
     ) {
@@ -60,6 +65,13 @@ function Main() {
         setDateRange(initialDateRange);
         console.log('All dates selected');
         break;
+      case '1':
+        setDateRange({
+          from: new Date(),
+          to: new Date(),
+        });
+        console.log('This year selected');
+        break;
       case '5':
         setDateRange({
           from: dateFiveYearAgo,
@@ -78,7 +90,6 @@ function Main() {
         console.log('Null value, no change');
         break;
     }
-    console.log(toggleVal);
   };
 
   const performSearch = () => {
@@ -86,8 +97,7 @@ function Main() {
     getArticleData({
       from: dateRange.from.getFullYear(),
       to: dateRange.to.getFullYear(),
-      practice,
-      benefit,
+      practiceBenefit: JSON.stringify({ practice, benefit }),
     }).then(
       (result) => {
         setArticleResult(result.data);
@@ -101,7 +111,6 @@ function Main() {
 
   const handlePracticeChange = (_, practice) => {
     setPractice(practice.name);
-    console.log(practice);
   };
   const handleBenefitChange = (_, benefits) => {
     setBenefit(benefits.map((benefit) => benefit.name));
@@ -155,9 +164,9 @@ function Main() {
       </div>
 
       {/* 5 vh */}
-      <footer>
+      {/* <footer>
         <Footer></Footer>
-      </footer>
+      </footer> */}
     </div>
   );
 }

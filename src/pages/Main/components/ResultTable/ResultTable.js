@@ -6,13 +6,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { makeStyles } from '@material-ui/core/styles';
 
-// import style from './ResultTable.module.scss';
+import style from './ResultTable.module.scss';
 
 const useStyles = makeStyles({
   tableContainer: {
-    width: '80%',
+    width: '90%',
     maxHeight: '60vh',
     overflowX: 'auto',
     overflowY: 'auto',
@@ -21,13 +23,23 @@ const useStyles = makeStyles({
   },
 });
 
-function ResultTable({tableData}) {
+function ResultTable({ tableData }) {
   const classes = useStyles();
   console.log('rows', tableData);
   return (
     <>
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table stickyHeader aria-label="article results">
+          <colgroup>
+            <col width="10%" />
+            <col width="25%" />
+            <col width="15%" />
+            <col width="10%" />
+            <col width="5%" />
+            <col width="10%" />
+            <col width="15%" />
+            <col width="10%" />
+          </colgroup>
           <TableHead>
             <TableRow>
               <TableCell>SE Practice</TableCell>
@@ -36,23 +48,44 @@ function ResultTable({tableData}) {
               <TableCell align="left">Source</TableCell>
               <TableCell align="center">Publication Year</TableCell>
               <TableCell align="center">DOI</TableCell>
-              <TableCell align="center">Claimed Benefits</TableCell>
+              <TableCell align="left">Claimed Benefits</TableCell>
+              <TableCell align="center">Evidence</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableData.map((row) => (
-              <TableRow key={row._id}>
-                <TableCell component="th" scope="row">
-                  {row.practice}
-                </TableCell>
-                <TableCell align="left">{row.articleTitle}</TableCell>
-                <TableCell align="left">{row.author.join(', ')}</TableCell>
-                <TableCell align="left">{row.source}</TableCell>
-                <TableCell align="center">{row.year}</TableCell>
-                <TableCell align="center">{row.doi}</TableCell>
-                <TableCell align="center">{row.benefits.join(', ')}</TableCell>
-              </TableRow>
-            ))}
+            {tableData.map((article) =>
+              Object.keys(article.benefits).map((articleBenefit, i) => (
+                <TableRow key={article._id + i}>
+                  <TableCell component="th" scope="row">
+                    {article.practice}
+                  </TableCell>
+                  <TableCell align="left">{article.articleTitle}</TableCell>
+                  <TableCell align="left">
+                    {article.author.join(', ')}
+                  </TableCell>
+                  <TableCell align="left">{article.journal}</TableCell>
+                  <TableCell align="center">{article.year}</TableCell>
+                  <TableCell align="center">{article.doi}</TableCell>
+                  <TableCell align="left">{articleBenefit}</TableCell>
+                  <TableCell align="center">
+                    {article.benefits[articleBenefit].level}{' '}
+                    {article.benefits[articleBenefit].isSupporting
+                      ? 'Support'
+                      : 'Not Support'}
+                    {'  '}
+                    {article.benefits[articleBenefit].isSupporting ? (
+                      <ThumbUpIcon
+                        className={style.thumbIconSupport}
+                      ></ThumbUpIcon>
+                    ) : (
+                      <ThumbDownIcon
+                        className={style.thumbIconAgainst}
+                      ></ThumbDownIcon>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
