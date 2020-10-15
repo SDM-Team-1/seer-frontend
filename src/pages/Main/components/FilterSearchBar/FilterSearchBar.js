@@ -95,7 +95,7 @@ function FilterSearchBar({ showSearch, updatePractice, updateBenefit }) {
         getOptionLabel={(option) => option.name}
         multiple
         getOptionDisabled={(option) => option.isDisabled}
-        getOptionSelected={(option) => option.name}
+        getOptionSelected={(option, selected) => option.name === selected.name }
         className={classes.autoCompleteBenefit}
         renderInput={(params) => (
           <TextField {...params} label="Benefits" variant="outlined" />

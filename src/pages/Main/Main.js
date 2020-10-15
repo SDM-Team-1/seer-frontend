@@ -33,6 +33,11 @@ function Main() {
     if (!toCurrentTime) {
       setQuickYearRange(null);
     } else if (
+      selectedDate.from.getFullYear() === (new Date().getFullYear()) &&
+      toCurrentTime
+    ) {
+      setQuickYearRange('1');
+    } else if (
       selectedDate.from.getFullYear() === dateFiveYearAgo.getFullYear() &&
       toCurrentTime
     ) {
@@ -59,6 +64,13 @@ function Main() {
       case 'all':
         setDateRange(initialDateRange);
         console.log('All dates selected');
+        break;
+      case '1':
+        setDateRange({
+          from: new Date(),
+          to: new Date(),
+        });
+        console.log('This year selected');
         break;
       case '5':
         setDateRange({

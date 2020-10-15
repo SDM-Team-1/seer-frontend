@@ -50,6 +50,13 @@ function QuickDate({ yearRange, onToggle }) {
           >
             Last 5 years
           </ToggleButton>
+          <ToggleButton
+            className={classes.buttonColor}
+            value="1"
+            aria-label="right aligned"
+          >
+            This year
+          </ToggleButton>
         </ToggleButtonGroup>
       </Box>
     </>
