@@ -9,6 +9,7 @@ import FilterSearchBar from './components/FilterSearchBar/FilterSearchBar';
 import ResultTable from './components/ResultTable/ResultTable';
 import QuickDate from './components/QuickDate/QuickDate';
 
+import { filterOptions } from './components/FilterSearchBar/FilterSearchBar';
 import getArticleData from '../../utils/api-service';
 
 function Main() {
@@ -33,7 +34,7 @@ function Main() {
     if (!toCurrentTime) {
       setQuickYearRange(null);
     } else if (
-      selectedDate.from.getFullYear() === (new Date().getFullYear()) &&
+      selectedDate.from.getFullYear() === new Date().getFullYear() &&
       toCurrentTime
     ) {
       setQuickYearRange('1');
@@ -112,8 +113,14 @@ function Main() {
   const handlePracticeChange = (_, practice) => {
     setPractice(practice.name);
   };
+
   const handleBenefitChange = (_, benefits) => {
-    setBenefit(benefits.map((benefit) => benefit.name));
+    const [, ...allBenefits] = filterOptions['Benefits'];
+    if (benefits.includes('All Benefits')) {
+      setBenefit(allBenefits);
+    } else {
+      setBenefit(benefits);
+    }
   };
 
   return (
@@ -130,6 +137,7 @@ function Main() {
             showSearch={() => performSearch()}
             updatePractice={handlePracticeChange}
             updateBenefit={handleBenefitChange}
+            benefitsVal={benefit}
           ></FilterSearchBar>
         </section>
 

@@ -9,7 +9,12 @@ import Button from '@material-ui/core/Button';
 
 import style from './FilterSearchBar.module.scss';
 
-function FilterSearchBar({ showSearch, updatePractice, updateBenefit }) {
+function FilterSearchBar({
+  showSearch,
+  updatePractice,
+  updateBenefit,
+  benefitsVal,
+}) {
   const useStyles = makeStyles((theme) => ({
     autoComplete: {
       marginLeft: '1vw',
@@ -38,38 +43,6 @@ function FilterSearchBar({ showSearch, updatePractice, updateBenefit }) {
 
   const classes = useStyles();
 
-  const filterOptions = {
-    Practice: [
-      {
-        name: 'Test Driven Development',
-        id: 'someRandomIDString',
-        isDisabled: false,
-      },
-      {
-        name: 'Behaviour Driven Development',
-        id: 'someRandomIDString',
-        isDisabled: true,
-      },
-    ],
-    Benefits: [
-      {
-        name: 'Improves code quality',
-        id: 'someRandomIDString',
-        isDisabled: false,
-      },
-      {
-        name: 'Improves product quality',
-        id: 'someRandomIDString',
-        isDisabled: false,
-      },
-      {
-        name: 'Improves team confidence',
-        id: 'someRandomIDString',
-        isDisabled: false,
-      },
-    ],
-  };
-
   const performSearch = (e) => {
     console.log('Search !!!');
     e.preventDefault();
@@ -92,15 +65,15 @@ function FilterSearchBar({ showSearch, updatePractice, updateBenefit }) {
 
       <Autocomplete
         options={filterOptions['Benefits']}
-        getOptionLabel={(option) => option.name}
         multiple
-        getOptionDisabled={(option) => option.isDisabled}
-        getOptionSelected={(option, selected) => option.name === selected.name }
+        getOptionLabel={(option) => option}
+        getOptionSelected={(option, selected) => option === selected}
         className={classes.autoCompleteBenefit}
         renderInput={(params) => (
           <TextField {...params} label="Benefits" variant="outlined" />
         )}
         onChange={updateBenefit}
+        value={benefitsVal}
       />
 
       <Button
@@ -115,5 +88,26 @@ function FilterSearchBar({ showSearch, updatePractice, updateBenefit }) {
     </Card>
   );
 }
+
+export const filterOptions = {
+  Practice: [
+    {
+      name: 'Test Driven Development',
+      id: 'someRandomIDString',
+      isDisabled: false,
+    },
+    {
+      name: 'Behaviour Driven Development',
+      id: 'someRandomIDString',
+      isDisabled: true,
+    },
+  ],
+  Benefits: [
+    'All Benefits',
+    'Improves code quality',
+    'Improves product quality',
+    'Improves team confidence',
+  ],
+};
 
 export default FilterSearchBar;

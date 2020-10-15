@@ -32,13 +32,13 @@ function ResultTable({ tableData }) {
         <Table stickyHeader aria-label="article results">
           <colgroup>
             <col width="10%" />
-            <col width="25%" />
+            <col width="20%" />
             <col width="15%" />
             <col width="10%" />
             <col width="5%" />
             <col width="10%" />
             <col width="15%" />
-            <col width="10%" />
+            <col width="15%" />
           </colgroup>
           <TableHead>
             <TableRow>
@@ -67,7 +67,7 @@ function ResultTable({ tableData }) {
                   <TableCell align="center">{article.year}</TableCell>
                   <TableCell align="center">{article.doi}</TableCell>
                   <TableCell align="left">{articleBenefit}</TableCell>
-                  <TableCell align="center">
+                  <TableCell align="right">
                     {article.benefits[articleBenefit].level}{' '}
                     {article.benefits[articleBenefit].isSupporting
                       ? 'Support'
