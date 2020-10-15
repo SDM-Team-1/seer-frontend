@@ -23,9 +23,13 @@ const useStyles = makeStyles({
   },
 });
 
-function ResultTable({ tableData }) {
+function ResultTable({ tableData, benefitsSelected }) {
   const classes = useStyles();
-  console.log('rows', tableData);
+  const noEvidenceMessage = (
+    <h3 className={style.noEvidence}>
+      No evidence data available satisfying the filtering criteria{' '}
+    </h3>
+  );
   return (
     <>
       <TableContainer component={Paper} className={classes.tableContainer}>
@@ -54,40 +58,48 @@ function ResultTable({ tableData }) {
           </TableHead>
           <TableBody>
             {tableData.map((article) =>
-              Object.keys(article.benefits).map((articleBenefit, i) => (
-                <TableRow key={article._id + i}>
-                  <TableCell component="th" scope="row">
-                    {article.practice}
-                  </TableCell>
-                  <TableCell align="left">{article.articleTitle}</TableCell>
-                  <TableCell align="left">
-                    {article.author.join(', ')}
-                  </TableCell>
-                  <TableCell align="left">{article.journal}</TableCell>
-                  <TableCell align="center">{article.year}</TableCell>
-                  <TableCell align="center">{article.doi}</TableCell>
-                  <TableCell align="left">{articleBenefit}</TableCell>
-                  <TableCell align="right">
-                    {article.benefits[articleBenefit].level}{' '}
-                    {article.benefits[articleBenefit].isSupporting
-                      ? 'Support'
-                      : 'Not Support'}
-                    {'  '}
-                    {article.benefits[articleBenefit].isSupporting ? (
-                      <ThumbUpIcon
-                        className={style.thumbIconSupport}
-                      ></ThumbUpIcon>
-                    ) : (
-                      <ThumbDownIcon
-                        className={style.thumbIconAgainst}
-                      ></ThumbDownIcon>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))
+              Object.keys(article.benefits).map((articleBenefit, i) => {
+                if (
+                  benefitsSelected.length === 0 ||
+                  benefitsSelected.includes(articleBenefit)
+                ) {
+                  return (
+                    <TableRow key={article._id + i}>
+                      <TableCell component="th" scope="row">
+                        {article.practice}
+                      </TableCell>
+                      <TableCell align="left">{article.articleTitle}</TableCell>
+                      <TableCell align="left">
+                        {article.author.join(', ')}
+                      </TableCell>
+                      <TableCell align="left">{article.journal}</TableCell>
+                      <TableCell align="center">{article.year}</TableCell>
+                      <TableCell align="center">{article.doi}</TableCell>
+                      <TableCell align="left">{articleBenefit}</TableCell>
+                      <TableCell align="right">
+                        {article.benefits[articleBenefit].level}{' '}
+                        {article.benefits[articleBenefit].isSupporting
+                          ? 'Support'
+                          : 'Not Support'}
+                        {'  '}
+                        {article.benefits[articleBenefit].isSupporting ? (
+                          <ThumbUpIcon
+                            className={style.thumbIconSupport}
+                          ></ThumbUpIcon>
+                        ) : (
+                          <ThumbDownIcon
+                            className={style.thumbIconAgainst}
+                          ></ThumbDownIcon>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                }
+              })
             )}
           </TableBody>
         </Table>
+        {tableData.length === 0 ? noEvidenceMessage : <></>}
       </TableContainer>
     </>
   );

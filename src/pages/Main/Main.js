@@ -116,6 +116,7 @@ function Main() {
 
   const handleBenefitChange = (_, benefits) => {
     const [, ...allBenefits] = filterOptions['Benefits'];
+    setShowResults(false);
     if (benefits.includes('All Benefits')) {
       setBenefit(allBenefits);
     } else {
@@ -167,6 +168,7 @@ function Main() {
           <ResultTable
             className={style.ResultTable}
             tableData={articleResult}
+            benefitsSelected={benefit}
           ></ResultTable>
         )}
       </div>
